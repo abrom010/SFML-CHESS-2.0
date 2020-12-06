@@ -1,4 +1,3 @@
-﻿  a.cpp
-  board.cpp
-  Generating Code...
+﻿  main.cpp
+C:\Users\user\Desktop\Chess2.0\src\main.cpp(62): warning C4715: 'GetTexture': not all control paths return a value
   Chess2.0.vcxproj -> C:\Users\user\Desktop\Chess2.0\Debug\Chess2.0.exe

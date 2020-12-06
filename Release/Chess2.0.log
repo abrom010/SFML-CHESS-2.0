@@ -1,0 +1,5 @@
+﻿  ai.cpp
+C:\Users\user\Desktop\Chess2.0\src\ai.cpp(78,21): warning C4018: '<': signed/unsigned mismatch
+  board.cpp
+  main.cpp
+LINK : fatal error LNK1181: cannot open input file 'sfml.system.lib'

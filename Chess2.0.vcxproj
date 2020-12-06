@@ -151,10 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ai.h" />
     <ClInclude Include="src\board.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\a.cpp" />
+    <ClCompile Include="src\ai.cpp" />
     <ClCompile Include="src\board.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>

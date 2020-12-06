@@ -1,14 +1,15 @@
-#include <set>
+#include <vector>
+#include <iostream>
 #include "ai.h"
 
 std::vector<Board::Move> Ai::GetAllPossibleMoves(Board board)
 {
-    std::set<Board::Move> moves;
+    std::vector<Board::Move> moves;
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
-            Board::Piece piece = board.boardArray[j][i];
+            Board::Piece piece = board.GetPieceAtPosition(Board::Position(i, j));
             if (piece != Board::Piece::None &&
                     (
                         piece == Board::Piece::BlackRook ||  
@@ -20,19 +21,20 @@ std::vector<Board::Move> Ai::GetAllPossibleMoves(Board board)
                     )
                 )
             {
-                Board::Position startingPosition(j, i);
+                Board::Position startingPosition(i, j);
                 for (auto endingPosition : board.GetPossibleMovesByPiece(startingPosition))
                 {
                     Board::Move move = Board::Move(startingPosition, endingPosition);
-                    moves.insert(move);
+                    moves.push_back(move);
                 }
                 
             }
         }
     }
+    return moves;
 }
 
-int Maxi(int ply, Board board)
+int Ai::Maxi(int ply, Board board)
 {
     if (ply == 0)
         return board.GetStaticEvaluation();
@@ -43,13 +45,13 @@ int Maxi(int ply, Board board)
         Board bd = board;
         bd.UpdateBoard(move);
 
-        int evaluation = Mini(5, bd);
-        if (evaluation > max) evaluation = max;
+        int evaluation = Ai::Mini(ply-1, bd);
+        if (evaluation > max) max = evaluation;
     }
     return max;
 }
 
-int Mini(int ply, Board board)
+int Ai::Mini(int ply, Board board)
 {
     if (ply == 0)
         return board.GetStaticEvaluation();
@@ -60,8 +62,8 @@ int Mini(int ply, Board board)
         Board bd = board;
         bd.UpdateBoard(move);
 
-        int evaluation = Maxi(5, bd);
-        if (evaluation < min) evaluation = min;
+        int evaluation = Ai::Maxi(ply-1, bd);
+        if (evaluation < min) min = evaluation;
     }
     return min;
 }
@@ -77,7 +79,12 @@ Board::Move Ai::FindBestMove(Board board)
     {
         Board bd = board;
         bd.UpdateBoard(moves[i]);
-        if (Maxi(5, bd) > max) indexWithMax = i;
+        int eval = Maxi(2, bd);
+        if (eval > max)
+        {
+            indexWithMax = i;
+            max = eval;
+        }
     }
 
     return moves[indexWithMax];

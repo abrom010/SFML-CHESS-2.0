@@ -22,6 +22,12 @@ public:
 			this->x = 0;
 			this->y = 0;
 		}
+
+		bool operator==(const Position& other)
+		{
+			if (this->x == other.x && this->y == other.y) return true;
+			else return false;
+		}
 	};
 
 	class Move
@@ -39,7 +45,7 @@ public:
 	{
 		BlackRook, BlackKnight, BlackBishop, BlackQueen, BlackKing, BlackPawn,
 		WhiteRook, WhiteKnight, WhiteBishop, WhiteQueen, WhiteKing, WhitePawn,
-		None
+		None, Null
 	};
 
 	std::vector<std::vector<Piece>> boardArray
@@ -71,7 +77,7 @@ public:
 		{Piece::WhiteKing, -900},
 	};
 
-	std::set<Position> GetPossibleMovesByPiece(Position);
+	std::vector<Position> GetPossibleMovesByPiece(Position);
 	Piece GetPieceAtPosition(Position);
 	int GetStaticEvaluation();
 	bool UpdateBoard(Move);

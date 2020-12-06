@@ -24,12 +24,15 @@
     <ClCompile Include="src\board.cpp">
       <Filter>src\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\a.cpp">
+    <ClCompile Include="src\ai.cpp">
       <Filter>src\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\board.h">
+      <Filter>src\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ai.h">
       <Filter>src\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
