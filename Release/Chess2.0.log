@@ -1,5 +1,8 @@
 ﻿  ai.cpp
-C:\Users\user\Desktop\Chess2.0\src\ai.cpp(78,21): warning C4018: '<': signed/unsigned mismatch
-  board.cpp
-  main.cpp
-LINK : fatal error LNK1181: cannot open input file 'sfml.system.lib'
+C:\Users\laptop\Desktop\SFML-CHESS-2.0\src\ai.cpp(92,21): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  5 of 652 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    12 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Chess2.0.vcxproj -> C:\Users\laptop\Desktop\SFML-CHESS-2.0\Release\Chess2.0.exe

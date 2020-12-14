@@ -2,7 +2,7 @@
 #include <iostream>
 #include "ai.h"
 
-std::vector<Board::Move> Ai::GetAllPossibleMoves(Board board)
+std::vector<Board::Move> Ai::GetAllPossibleBlackMoves(Board board)
 {
     std::vector<Board::Move> moves;
     for (int i = 0; i < 8; i++)
@@ -10,16 +10,7 @@ std::vector<Board::Move> Ai::GetAllPossibleMoves(Board board)
         for (int j = 0; j < 8; j++)
         {
             Board::Piece piece = board.GetPieceAtPosition(Board::Position(i, j));
-            if (piece != Board::Piece::None &&
-                    (
-                        piece == Board::Piece::BlackRook ||  
-                        piece == Board::Piece::BlackKnight ||
-                        piece == Board::Piece::BlackBishop ||
-                        piece == Board::Piece::BlackQueen ||
-                        piece == Board::Piece::BlackKing ||
-                        piece == Board::Piece::BlackPawn
-                    )
-                )
+            if (board.IsPieceBlack(piece))
             {
                 Board::Position startingPosition(i, j);
                 for (auto endingPosition : board.GetPossibleMovesByPiece(startingPosition))
@@ -34,13 +25,36 @@ std::vector<Board::Move> Ai::GetAllPossibleMoves(Board board)
     return moves;
 }
 
+std::vector<Board::Move> Ai::GetAllPossibleWhiteMoves(Board board)
+{
+	std::vector<Board::Move> moves;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			Board::Piece piece = board.GetPieceAtPosition(Board::Position(i, j));
+				if (!board.IsPieceBlack(piece))
+			{
+				Board::Position startingPosition(i, j);
+				for (auto endingPosition : board.GetPossibleMovesByPiece(startingPosition))
+				{
+					Board::Move move = Board::Move(startingPosition, endingPosition);
+					moves.push_back(move);
+				}
+
+			}
+		}
+	}
+	return moves;
+}
+
 int Ai::Maxi(int ply, Board board)
 {
     if (ply == 0)
         return board.GetStaticEvaluation();
 
     int max = INT_MIN;
-    for (const Board::Move& move : Ai::GetAllPossibleMoves(board))
+    for (const Board::Move& move : Ai::GetAllPossibleBlackMoves(board))
     {
         Board bd = board;
         bd.UpdateBoard(move);
@@ -57,7 +71,7 @@ int Ai::Mini(int ply, Board board)
         return board.GetStaticEvaluation();
 
     int min = INT_MAX;
-    for (const Board::Move& move : Ai::GetAllPossibleMoves(board))
+    for (const Board::Move& move : Ai::GetAllPossibleWhiteMoves(board))
     {
         Board bd = board;
         bd.UpdateBoard(move);
@@ -70,7 +84,7 @@ int Ai::Mini(int ply, Board board)
 
 Board::Move Ai::FindBestMove(Board board)
 {
-    std::vector<Board::Move> moves = GetAllPossibleMoves(board);
+    std::vector<Board::Move> moves = GetAllPossibleBlackMoves(board);
     
     int max = INT_MIN;
     int indexWithMax=0;
